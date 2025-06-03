@@ -1,0 +1,9 @@
+    customAssets = {
+        {target="lmexample/parasol_cards_f.png",link="https://steamusercontent-a.akamaihd.net/ugc/18402794888444462126/21082589D67FF0E777DF1C93F4A3ADDF2E91F41C/"},
+        {target="lmexample/parasol_cards_b.png",link="https://steamusercontent-a.akamaihd.net/ugc/10986521115997341997/C947D9CC2FBE8AC0F914A68652E07730F2EF9F95/"},
+        {target="lmexample/d6s.unity3d",link="https://steamusercontent-a.akamaihd.net/ugc/14016310337292758413/1BC97B6C1C19E9188EAA0CEF577B53314F5B0DFC/"},
+        {target="lmexample/parasol_dodecahedron.unity3d",link="https://steamusercontent-a.akamaihd.net/ugc/15153329712524806740/674ED5B7715C3DD3962F0AA58796F07C929AF0C0/"},
+        {target="lmexample/parasol_materials.unity3d",link="https://steamusercontent-a.akamaihd.net/ugc/10852620379977444372/DC8FAEBC50880E9AF7E3F41D3CE3650F1108642D/"},
+        {target="lmexample/stellar_cards_f.jpg",link="https://steamusercontent-a.akamaihd.net/ugc/11927536559655001428/93F37481BFC24D9CDE4C18658E159172CA4C1D6E/"},
+        {target="lmexample/stellar_cards_b.jpg",link="https://steamusercontent-a.akamaihd.net/ugc/11584367589236728982/A2883D70A8AF1731AD9B0E58AB140AC6EEBCA980/"},
+    }

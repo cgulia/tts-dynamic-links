@@ -3,7 +3,7 @@ In-game utility for managing and revisioning links in your mods/saves.
 
 Steam Workshop Submission: https://steamcommunity.com/sharedfiles/filedetails/?id=3492813174
 
-The tool finds all gameobjects with the tag `linkmanager` and replaces previous links/paths.
+Link Manager finds all gameobjects with the tag ´linkmanager´ and replaces previous links/paths according to the provided JSON array.
 
 **Information & Usage Instructions:**
 

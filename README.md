@@ -1,7 +1,10 @@
-In-game utility for remotely managing and revisioning paths/urls (links) to custom assets.
+In-game utility for managing and keeping links up to date in your mods/saves.
 
-Usage instructions:
-Link manager takes a link to a JSON file of reference and replacement strings:
+The tool finds all gameobjects with the tag `linkmanager` and replaces previous links/paths.
+
+**Information & Usage Instructions:**
+
+Link manager expects link to a JSON file with reference (original) and replacement strings:
 ```js
     [
         {"target":"lmexample/parasol_cards_f.png","link":"https://steamusercontent-a.akamaihd.net/ugc/18402794888444462126/21082589D67FF0E777DF1C93F4A3ADDF2E91F41C/"},
@@ -9,3 +12,9 @@ Link manager takes a link to a JSON file of reference and replacement strings:
         {"target":"lmexample/d6s.unity3d","link":"https://steamusercontent-a.akamaihd.net/ugc/14016310337292758413/1BC97B6C1C19E9188EAA0CEF577B53314F5B0DFC/"},
     ]
 ```
+`target` - The path/link to replace
+
+`link` - The path/link replacing `target`
+
+Use the in-game command `!lm f link_to_file.json` or call `lm.call("fetchAssets", "link_to_file.json")` to run the fetch and replace function.
+

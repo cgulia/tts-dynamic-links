@@ -1,10 +1,10 @@
-In-game utility for managing and keeping links up to date in your mods/saves.
+In-game utility for managing and revisioning links in your mods/saves.
 
 The tool finds all gameobjects with the tag `linkmanager` and replaces previous links/paths.
 
 **Information & Usage Instructions:**
 
-Link manager expects link to a JSON file with reference (original) and replacement strings:
+Link Manager expects link to a JSON array with reference (original) and replacement strings:
 ```js
     [
         {"target":"lmexample/parasol_cards_f.png","link":"https://steamusercontent-a.akamaihd.net/ugc/18402794888444462126/21082589D67FF0E777DF1C93F4A3ADDF2E91F41C/"},
@@ -18,3 +18,6 @@ Link manager expects link to a JSON file with reference (original) and replaceme
 
 Use the in-game command `!lm f link_to_file.json` or call `lm.call("fetchAssets", "link_to_file.json")` to run the fetch and replace function.
 
+It is recommended that you host the JSON file on Github or a filehost that allows you to update and provide a link with it's contents.
+
+Example: https://raw.githubusercontent.com/cgulia/tts-dynamic-links/refs/heads/main/example/example_assets.json

@@ -1,0 +1,155 @@
+{
+  "GUID": "a07cbc",
+  "Name": "Custom_Assetbundle",
+  "Transform": {
+    "posX": -2.74851061E-07,
+    "posY": 0.9599999,
+    "posZ": 1.26176587E-07,
+    "rotX": -2.556879E-05,
+    "rotY": 180.024521,
+    "rotZ": 2.993681E-07,
+    "scaleX": 2.0,
+    "scaleY": 2.0,
+    "scaleZ": 2.0
+  },
+  "Nickname": "[33beff]LINK MANAGER[-] [2fff91]v1.02[-]",
+  "Description": "",
+  "GMNotes": "",
+  "AltLookAngle": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "ColorDiffuse": {
+    "r": 1.0,
+    "g": 1.0,
+    "b": 1.0
+  },
+  "LayoutGroupSortIndex": 0,
+  "Value": 0,
+  "Locked": false,
+  "Grid": true,
+  "Snap": true,
+  "IgnoreFoW": false,
+  "MeasureMovement": false,
+  "DragSelectable": true,
+  "Autoraise": true,
+  "Sticky": true,
+  "Tooltip": true,
+  "GridProjection": false,
+  "HideWhenFaceDown": false,
+  "Hands": false,
+  "CustomAssetbundle": {
+    "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/17810922787632411764/B5167E9CD5667D3D4AB97CDA85E2DDF0AB348E88/",
+    "AssetbundleSecondaryURL": "",
+    "MaterialIndex": 0,
+    "TypeIndex": 0,
+    "LoopingEffectIndex": 0
+  },
+  "LuaScript": "function onload()\r
+    localVersion = 1.01\r
+    prettyPrint(\"[2fff91]v\" .. localVersion .. \"[-]\")\r
+    self.setName(\"[33beff]LINK MANAGER[-] \" .. \"[2fff91]v\" .. localVersion .. \"[-]\")\r
+    prettyPrint(\"Please read the usage instruction on the Github/Workshop.\")\r
+    getVersion()\r
+    lmAssets = {}\r
+    objectCache = {}\r
+    objectIndex = 0\r
+    self.addContextMenuItem(\"parseobjects\", parseObjects)\r
+    setNotes(self.getJSON(), \"lm\")\r
+end\r
+\r
+function getVersion()\r
+        WebRequest.get(\"https://raw.githubusercontent.com/cgulia/tts-dynamic-links/refs/heads/main/version.json\", function(request)\r
+        if request.is_error then\r
+            log(request.error)\r
+        else\r
+            remoteVersion = tonumber(request.text)\r
+            if localVersion ~= remoteVersion then\r
+                prettyPrint(\"Script version out of date ([2fff91]v\" .. remoteVersion .. \"[-] available).\")\r
+                prettyPrint(\"Use chat command [2fff91]!lm u[-] or [2fff91]!lm update[-] to download the latest version.\")\r
+            end\r
+        end\r
+    end)\r
+end\r
+\r
+function onChat(message, player)\r
+    arguments = {}\r
+    for i in string.gmatch(message, \"%S+\") do\r
+        table.insert(arguments, i)\r
+    end\r
+\r
+    if arguments[1] == \"!lm\" or \"!linkmanager\" then\r
+        if arguments[2] == \"f\" or \"fetch\" then\r
+            if arguments[3] ~= nil then\r
+                fetchAssets(arguments[3])\r
+                prettyPrint(\"Downloading assets table from [d9d9d9]\" .. \"[-]\")\r
+            end\r
+        end\r
+    end\r
+end\r
+\r
+function downloadUpdate()\r
+    prettyPrint(\"Downloading latest version of [33beff]LINK MANAGER[-].\")\r
+end\r
+\r
+function fetchAssets(link)\r
+    WebRequest.get(link, function(request)\r
+        if request.is_error then\r
+            log(request.error)\r
+        else\r
+            lmAssets = JSON.decode(request.text)\r
+            prettyPrint(\"Found [2fff91]\" .. #lmAssets .. \"[-] asset references.\")\r
+            parseObjects()\r
+        end\r
+    end)\r
+end\r
+\r
+function parseObjects()\r
+    objectIndex = 0\r
+    objectCache = {}\r
+    local allObjects = getAllObjects()\r
+    for o, object in ipairs(allObjects) do\r
+        if object.hasTag(\"linkmanager\") then\r
+            table.insert(objectCache, tostring(object.getJSON()))\r
+            object.destruct()\r
+        end\r
+    end\r
+    Wait.time(function() updateAssetsLoop() end, 0.5, 1)\r
+end\r
+\r
+function updateAssetsLoop()\r
+    Wait.time(function() updateAssets() end, 0.1, #objectCache)\r
+end\r
+\r
+function updateAssets()\r
+    objectIndex = objectIndex + 1\r
+    local subJson = objectCache[objectIndex]\r
+    for a, asset in ipairs(lmAssets) do\r
+        subJson = string.gsub(subJson, asset.target, asset.link)\r
+        prettyPrint(\"Replaced [d9d9d9]\" .. asset.target .. \"[-] with [d9d9d9]\" .. asset.link .. \"[-]\")\r
+    end\r
+    local spawnedObject = spawnObjectJSON({json=subJson})\r
+    if objectIndex == #objectCache then\r
+        prettyPrint(\"Finished updating ([2fff91]\" .. objectIndex .. \"/\" .. #objectCache .. \"[-]) assets.\")\r
+        prettyPrint(\"[b]DELETE[/b] the [33beff][LINK MANAGER][-] utility and [b]SAVE[/b] your mod now.\")\r
+    end\r
+\r
+end\r
+\r
+function prettyPrint(string)\r
+    local prefix = \"[33beff][LINK MANAGER][-]: \"\r
+    printToAll(prefix .. string)\r
+end\r
+\r
+function setNotes(notes,title)\r
+    parameters = {\r
+        title = tostring(title),\r
+        body = tostring(notes),\r
+        color = \"White\"\r
+    }\r
+    Notes.addNotebookTab(parameters)\r
+end",
+  "LuaScriptState": "",
+  "XmlUI": ""
+}
